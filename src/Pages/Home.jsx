@@ -2,13 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import Grid from "../components/Home/Grid";
 function Home() {
-  return (
-    <HomeContent>
-      <Grid />
-    </HomeContent>
-  );
+  return <Grid />;
 }
 
 export default Home;
-
-const HomeContent = styled.div``;

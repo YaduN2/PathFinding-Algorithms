@@ -19,7 +19,7 @@ function NavBar() {
           <NavLink to="/">Home</NavLink>
         </SLink>
         <SLink>
-          <NavLink to="/update">Updates</NavLink>
+          <NavLink to="/dijkstra">Dijkstra</NavLink>
         </SLink>
         <SLink>
           <NavLink to="/about">About</NavLink>

@@ -1,19 +1,14 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Switch,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/NavBar/NavBar";
-import Home from "./Pages/Home";
-import Updates from "./Pages/Updates";
+import DijkstraHome from "./Pages/DijkstraHomePage";
 function App() {
   return (
     <Router>
       <NavBar />
       <Routes>
-        <Route path="/" exact element={<Home />}></Route>
+        <Route path="/" exact element={<DijkstraHome />}></Route>
+        <Route path="/dijkstra" element={<DijkstraHome />}></Route>
       </Routes>
     </Router>
   );
