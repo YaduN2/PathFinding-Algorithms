@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import Node from "./Node";
 import DijkstraAlgorithm from "../../scripts/DijkstraAlgorithm";
 
 function Map() {
-  const ROW = 7;
-  const COL = 24;
+  const ROW = 20;
+  const COL = 30;
 
   let algorithmParams = {
     algorithmStatus: 0,
@@ -27,6 +27,10 @@ function Map() {
     }
   };
 
+  const getRandomWeight = () => {
+    return Math.floor(Math.random() * 100);
+  };
+
   const makeNode = (row, col, nodeID, weight = 1) => {
     return {
       rowId: row,
@@ -37,7 +41,6 @@ function Map() {
       isEnd: false,
       weight: weight,
       parent: null,
-      nodeStatus: -1,
       visited: 0,
       color: "white",
     };
@@ -46,31 +49,45 @@ function Map() {
   const makeNodes = (flag = 0) => {
     let initalNodes = [];
     let totalNode = 0;
+
     for (let i = 0; i < ROW; i++) {
       let nodeRow = [];
       for (let j = 0; j < COL; j++) {
         totalNode++;
         let weight;
-        if (flag === 1) {
-          weight = getWeight();
-        }
+        if (flag === 1) weight = getWeight();
+        if (flag === 2) weight = getRandomWeight();
         let node = makeNode(i, j, totalNode - 1, weight);
         nodeRow.push(node);
       }
       initalNodes.push(nodeRow);
     }
+
     return initalNodes;
   };
 
   const [grid, setNodes] = useState([]);
-
   /* ON START */
   useEffect(() => {
     setNodes(makeNodes());
   }, []);
 
+  const randomWeightedDijkstra = () => {
+    setNodes(makeNodes(2));
+    algorithmParams = {
+      algorithmStatus: 0,
+      startSelected: false,
+      endSelected: false,
+      startRow: -1,
+      startCol: -1,
+      endRow: -1,
+      endCol: -1,
+      nRow: ROW,
+      nCol: COL,
+    };
+  };
+
   const randomDijkstra = () => {
-    console.log("DACHU IS A MONKEY");
     setNodes(makeNodes(1));
     algorithmParams = {
       algorithmStatus: 0,
@@ -86,7 +103,6 @@ function Map() {
   };
 
   const resetDijkstra = () => {
-    console.log("DACHU IS A DONKEY");
     setNodes(makeNodes());
     algorithmParams = {
       algorithmStatus: 0,
@@ -101,16 +117,29 @@ function Map() {
     };
   };
 
-  const startDijkstra = () => {
-    // console.log("button clicked");
-    var retObject = DijkstraAlgorithm(grid, algorithmParams);
-    var path = retObject.path;
-    var visitedNodes = retObject.visitedNodes;
+  const clonedGrid = (grid) => {
+    return grid.map(function (arr) {
+      return arr.slice();
+    });
+  };
+  //visitedNodes-> array of nodes in visisted order , newGrid-> a cloned version of grid(2D array of nodes)
+  const colorVisited = (visitedNodes, newGrid) => {
+    if (visitedNodes.length !== 0) {
+      for (let i = 0; i < visitedNodes.length; i++) {
+        const node = visitedNodes[i];
+        console.log(node.id);
+        let newNode = {
+          ...node,
+          color: "yellow",
+        };
+        newGrid[node.rowId][node.colId] = newNode;
+        setNodes(newGrid);
+      }
+    }
+  };
 
+  const colorPath = (path, newGrid) => {
     if (path.length !== 0) {
-      var newGrid = grid.map(function (arr) {
-        return arr.slice();
-      });
       for (let i = 0; i < path.length; i++) {
         const node = path[i];
         console.log(node.id);
@@ -124,27 +153,48 @@ function Map() {
       }
     }
   };
+  const changeColor = async (path, visitedNodes, newGrid) => {
+    colorVisited(visitedNodes, newGrid);
+    colorPath(path, newGrid);
+    // console.log(newGrid);
+  };
+
+  const startDijkstra = () => {
+    // console.log("button clicked");
+    var retObject = DijkstraAlgorithm(grid, algorithmParams);
+    var path = retObject.path;
+    var visitedNodes = retObject.visitedNodes;
+    var newGrid = clonedGrid(grid);
+    changeColor(path, visitedNodes, newGrid);
+  };
 
   return (
     <Grid>
-      {grid.map((nodeRow, rowIndex) => {
-        return (
-          <NodeRow key={rowIndex}>
-            {nodeRow.map((node, nodeIndex) => {
-              return (
-                <Node
-                  key={nodeIndex}
-                  data={node}
-                  algorithmParams={algorithmParams}
-                />
-              );
-            })}
-          </NodeRow>
-        );
-      })}
-      <DijkstraStart onClick={startDijkstra}>Start</DijkstraStart>
-      <DijkstraReset onClick={resetDijkstra}>Reset</DijkstraReset>
-      <DijkstraRandom onClick={randomDijkstra}>Random</DijkstraRandom>
+      <InnerGrid>
+        {grid.map((nodeRow, rowIndex) => {
+          return (
+            <NodeRow key={rowIndex}>
+              {nodeRow.map((node, nodeIndex) => {
+                return (
+                  <Node
+                    key={nodeIndex}
+                    data={node}
+                    algorithmParams={algorithmParams}
+                  />
+                );
+              })}
+            </NodeRow>
+          );
+        })}
+      </InnerGrid>
+      <Control>
+        <DijkstraStart onClick={startDijkstra}>Start</DijkstraStart>
+        <DijkstraReset onClick={resetDijkstra}>Reset</DijkstraReset>
+        <DijkstraRandom onClick={randomDijkstra}>Random</DijkstraRandom>
+        <DijkstraRandomWeighted onClick={randomWeightedDijkstra}>
+          Random Weight
+        </DijkstraRandomWeighted>
+      </Control>
     </Grid>
   );
 }
@@ -154,18 +204,38 @@ export default Map;
 const Grid = styled.div`
   /* background-color: red; */
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
-  justify-content: center;
-  height: 100vh; //CHANGE THIS LATER!!!
+  justify-content: space-evenly;
+  height: 100%; //CHANGE THIS LATER!!!
+  position: relative;
+  margin: 20px;
+  padding: 20px;
 `;
 
+const InnerGrid = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const Control = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const NodeRow = styled.div`
   /* background-color: blue; */
   display: flex;
   flex-direction: row;
 `;
 
+const ToggleWeight = styled.button`
+  font-size: 1.2rem;
+  padding: 8px;
+  margin-top: 12px;
+  width: 6rem;
+  background-color: #ff00ea;
+  border: 3px solid black;
+`;
 const DijkstraReset = styled.button`
   font-size: 1.2rem;
   padding: 8px;
@@ -181,6 +251,15 @@ const DijkstraRandom = styled.button`
   padding: 8px;
   margin-top: 12px;
   background-color: #3a4073;
+  border: 3px solid black;
+`;
+
+const DijkstraRandomWeighted = styled.button`
+  font-size: 1.2rem;
+  width: 6rem;
+  padding: 8px;
+  margin-top: 12px;
+  background-color: #3a7366;
   border: 3px solid black;
 `;
 const DijkstraStart = styled.button`

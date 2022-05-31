@@ -84,8 +84,6 @@ function Node({ data, algorithmParams }) {
           ? "green"
           : data.weight === 999
           ? "rgb(58, 58, 58)"
-          : data.visited === 1
-          ? "yellow"
           : data.color,
       }}
       onClick={changeStyle}
@@ -93,6 +91,7 @@ function Node({ data, algorithmParams }) {
       {/* {data.rowId + " " + data.colId} */}
       {/* {data.id} */}
       {/* {data.value} */}
+      {data.weight}
     </Cell>
   );
 }
@@ -100,11 +99,11 @@ function Node({ data, algorithmParams }) {
 export default Node;
 
 const Cell = styled.div`
-  width: 3rem;
-  height: 3rem;
+  width: 35px;
+  height: 35px;
   margin-top: auto;
   margin-right: auto;
-  border: 3px black solid;
+  border: 2px black solid;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -9,7 +9,7 @@ function NavBar() {
       <Logo>
         <SLink>
           <NavLink to="/">
-            <h1>Loho</h1>
+            <h1>ImaJine</h1>
           </NavLink>
         </SLink>
       </Logo>

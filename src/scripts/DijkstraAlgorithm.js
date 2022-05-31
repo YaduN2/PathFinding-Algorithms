@@ -77,7 +77,7 @@ const DijkstraAlgorithm = (nodes, algorithmParams) => {
       }
     }
   }
-  //   console.log(visitedNodes);
+  // console.log("visitedNodes");
   let retObject = {
     path: [],
     visitedNodes: visitedNodes,
