@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import Node from "../Node";
-import DijkstraAlgorithm from "../../scripts/DijkstraAlgorithm";
 import "./Map.css";
+import AStar from "../../scripts/AStarAlgorithm";
 function Map() {
   const ROW = 20;
   const COL = 30;
-
   let algorithmParams = {
     algorithmStatus: 0,
     startSelected: false,
@@ -43,6 +42,9 @@ function Map() {
       parent: null,
       visited: 0,
       color: "white",
+      valueF: 0,
+      valueG: 0,
+      valueH: 0,
       display: weight,
     };
   };
@@ -63,7 +65,6 @@ function Map() {
       }
       initalNodes.push(nodeRow);
     }
-
     return initalNodes;
   };
 
@@ -73,56 +74,27 @@ function Map() {
     setNodes(makeNodes());
   }, []);
 
-  const randomWeightedDijkstra = () => {
-    setNodes(makeNodes(2));
-    algorithmParams = {
-      algorithmStatus: 0,
-      startSelected: false,
-      endSelected: false,
-      startRow: -1,
-      startCol: -1,
-      endRow: -1,
-      endCol: -1,
-      nRow: ROW,
-      nCol: COL,
-    };
-  };
-
-  const randomDijkstra = () => {
-    setNodes(makeNodes(1));
-    algorithmParams = {
-      algorithmStatus: 0,
-      startSelected: false,
-      endSelected: false,
-      startRow: -1,
-      startCol: -1,
-      endRow: -1,
-      endCol: -1,
-      nRow: ROW,
-      nCol: COL,
-    };
-  };
-
-  const resetDijkstra = () => {
-    setNodes(makeNodes());
-    algorithmParams = {
-      algorithmStatus: 0,
-      startSelected: false,
-      endSelected: false,
-      startRow: -1,
-      startCol: -1,
-      endRow: -1,
-      endCol: -1,
-      nRow: ROW,
-      nCol: COL,
-    };
-  };
-
   const clonedGrid = (grid) => {
     return grid.map(function (arr) {
       return arr.slice();
     });
   };
+
+  const resetDijkstra = () => {
+    algorithmParams = {
+      algorithmStatus: 0,
+      startSelected: false,
+      endSelected: false,
+      startRow: -1,
+      startCol: -1,
+      endRow: -1,
+      endCol: -1,
+      nRow: ROW,
+      nCol: COL,
+    };
+    setNodes(makeNodes());
+  };
+
   //visitedNodes-> array of nodes in visisted order , newGrid-> a cloned version of grid(2D array of nodes)
   const colorVisited = (visitedNodes, newGrid) => {
     if (visitedNodes.length !== 0) {
@@ -140,36 +112,36 @@ function Map() {
   };
 
   const colorPath = (path, newGrid) => {
-    for (let i = 0; i < path.length; i++) {
-      const node = path[i];
-      console.log(node.id);
-      let newNode = {
-        ...node,
-        color: "deeppink",
-        visited: 2,
-      };
-      newGrid[node.rowId][node.colId] = newNode;
-      setNodes(newGrid);
+    if (path.length !== 0) {
+      for (let i = 0; i < path.length; i++) {
+        const node = path[i];
+        // console.log(node.id);
+        let newNode = {
+          ...node,
+          color: "deeppink",
+          visited: 2,
+        };
+        newGrid[node.rowId][node.colId] = newNode;
+        setNodes(newGrid);
+      }
     }
   };
-  const changeColor = async (path, visitedNodes, newGrid) => {
-    colorVisited(visitedNodes, newGrid);
-    colorPath(path, newGrid);
-    // console.log(newGrid);
-  };
 
-  const startDijkstra = () => {
+  const test = () => {};
+  const startAStar = () => {
     if (!algorithmParams.endSelected || !algorithmParams.startSelected) {
       console.log("Start Conditions Not Met");
       alert("Start Conditions Not Met");
       return;
     }
     // console.log("button clicked");
-    var retObject = DijkstraAlgorithm(grid, algorithmParams);
+    var retObject = AStar(grid, algorithmParams);
+    // console.log(retObject);
     var path = retObject.path;
     var visitedNodes = retObject.visitedNodes;
     var newGrid = clonedGrid(grid);
-    changeColor(path, visitedNodes, newGrid);
+    colorVisited(visitedNodes, newGrid);
+    colorPath(path, newGrid);
   };
 
   return (
@@ -193,7 +165,7 @@ function Map() {
       </InnerGrid>
       <Control>
         <DijkstraStartBtn
-          onClick={startDijkstra}
+          onClick={startAStar}
           className="button"
           style={{ backgroundColor: "#3a733a" }}
         >
@@ -207,14 +179,14 @@ function Map() {
           Reset
         </DijkstraResetBtn>
         <DijkstraRandomBtn
-          onClick={randomDijkstra}
+          onClick={test}
           className="button"
           style={{ backgroundColor: "#3a4073" }}
         >
           Random
         </DijkstraRandomBtn>
         <DijkstraRandomWeightedBtn
-          onClick={randomWeightedDijkstra}
+          onClick={test}
           className="button"
           style={{ backgroundColor: "#3a7366" }}
         >

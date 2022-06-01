@@ -22,7 +22,9 @@ function NavBar() {
           <NavLink to="/dijkstra">Dijkstra</NavLink>
         </SLink>
         <SLink>
-          <NavLink to="/about">About</NavLink>
+          <NavLink to="/AStar">
+            A<span> *&nbsp;</span> Algorithm
+          </NavLink>
         </SLink>
         <SLink>
           <NavLink to="/contact">Contact</NavLink>
@@ -98,6 +100,9 @@ const SLink = styled.div`
 
     &.active {
       color: #15cdfc;
+      span {
+        color: #2eff2e;
+      }
     }
   }
 `;

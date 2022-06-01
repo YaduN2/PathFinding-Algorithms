@@ -5,6 +5,23 @@ const DijkstraAlgorithm = (nodes, algorithmParams) => {
   let col = algorithmParams.nCol;
   let totalNodes = algorithmParams.nRow * algorithmParams.nCol;
   //   console.log(nodes);
+  var visitedNodes = [];
+  let returnObject = {
+    path: [],
+    visitedNodes: visitedNodes,
+  };
+
+  const getPath = (endingNode) => {
+    let path = [];
+    let temp = endingNode;
+    while (temp !== null) {
+      path.push(temp);
+      temp = temp.parent;
+    }
+    // console.log(path);
+    return path;
+  };
+
   const getNeighbours = (i, j) => {
     var neighbours = [];
     if (j >= 0 && j < col - 1) {
@@ -41,11 +58,11 @@ const DijkstraAlgorithm = (nodes, algorithmParams) => {
     distanceArray[i] = Infinity;
   }
   var startingNode = nodes[algorithmParams.startRow][algorithmParams.startCol];
+  var endingNode = nodes[algorithmParams.endRow][algorithmParams.endCol];
   distanceArray[startingNode.id] = 0;
   /* change color of starting Node ^^^^ */
 
   var pQueue = new PriorityQueue();
-  var visitedNodes = [];
   pQueue.enqueue(startingNode, startingNode.weight);
   while (!pQueue.isEmpty()) {
     let currNode = pQueue.front().element;
@@ -57,10 +74,22 @@ const DijkstraAlgorithm = (nodes, algorithmParams) => {
     for (const neighbour of neighbours) {
       // selectedNode = nodes[nI][nJ]
       let [nI, nJ] = neighbour;
-      /* If selectedNode is not visited and if distanceToCurrNode + weightOfSelectedNode < distanceToSelectedNode => current path is of shorter distance*/
+
       if (nodes[nI][nJ].weight === 999) {
         continue;
       }
+      if (nodes[nI][nJ] === endingNode) {
+        nodes[nI][nJ].parent = currNode;
+        nodes[nI][nJ].visited = 1;
+        visitedNodes.push(nodes[nI][nJ]);
+        var path = [];
+        path = getPath(endingNode);
+        returnObject.path = path;
+        // console.log("returned");
+        return returnObject;
+      }
+
+      /* If selectedNode is not visited and if distanceToCurrNode + weightOfSelectedNode < distanceToSelectedNode => current path is of shorter distance*/
       if (
         nodes[nI][nJ].visited === 0 &&
         distanceArray[currNode.id] + nodes[nI][nJ].weight <
@@ -77,29 +106,20 @@ const DijkstraAlgorithm = (nodes, algorithmParams) => {
       }
     }
   }
-  // console.log("visitedNodes");
-  let retObject = {
-    path: [],
-    visitedNodes: visitedNodes,
-  };
   //   console.log(distanceArray);
+
   let temp = nodes[algorithmParams.endRow][algorithmParams.endCol];
   if (temp.parent === null) {
     console.log("path not found!");
-    return retObject;
+    algorithmParams.algorithmStatus = 1;
+    return returnObject;
   }
 
-  var path = [];
+  var path = getPath(endingNode);
+  returnObject.path = path;
 
-  while (temp !== null) {
-    path.push(temp);
-    // console.log(temp.id);
-    /* Change color for backtracking */
-    temp = temp.parent;
-  }
   algorithmParams.algorithmStatus = 1;
-  retObject.path = path;
-  return retObject;
+  return returnObject;
 };
 
 export default DijkstraAlgorithm;
