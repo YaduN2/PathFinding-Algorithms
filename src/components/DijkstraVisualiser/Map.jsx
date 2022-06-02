@@ -124,17 +124,38 @@ function Map() {
     });
   };
   //visitedNodes-> array of nodes in visisted order , newGrid-> a cloned version of grid(2D array of nodes)
+
+  const locateNode = (visitedNodes) => {
+    if (visitedNodes.length !== 0) {
+      for (let i = 0; i < visitedNodes.length; i++) {
+        setTimeout(() => {
+          let newGrid = clonedGrid(grid);
+          const node = visitedNodes[i];
+          console.log(node.id);
+          const newNode = {
+            ...node,
+            color: "yellow",
+          };
+          newGrid[node.rowId][node.colId] = newNode;
+          setNodes(newGrid);
+          // console.log(newGrid);
+        }, 50 * i);
+      }
+    }
+  };
+
   const colorVisited = (visitedNodes, newGrid) => {
     if (visitedNodes.length !== 0) {
       for (let i = 0; i < visitedNodes.length; i++) {
         const node = visitedNodes[i];
-        // console.log(node.id);
-        let newNode = {
+        console.log(node.id);
+        const newNode = {
           ...node,
           color: "yellow",
         };
         newGrid[node.rowId][node.colId] = newNode;
         setNodes(newGrid);
+        // console.log(newGrid);
       }
     }
   };
@@ -152,10 +173,13 @@ function Map() {
       setNodes(newGrid);
     }
   };
-  const changeColor = async (path, visitedNodes, newGrid) => {
-    colorVisited(visitedNodes, newGrid);
-    colorPath(path, newGrid);
-    // console.log(newGrid);
+
+  const changeC = (path, visitedNodes, newGrid) => {
+    locateNode(visitedNodes);
+    setTimeout(() => {
+      colorVisited(visitedNodes, newGrid);
+      colorPath(path, newGrid);
+    }, 50 * visitedNodes.length);
   };
 
   const startDijkstra = () => {
@@ -169,7 +193,7 @@ function Map() {
     var path = retObject.path;
     var visitedNodes = retObject.visitedNodes;
     var newGrid = clonedGrid(grid);
-    changeColor(path, visitedNodes, newGrid);
+    changeC(path, visitedNodes, newGrid);
   };
 
   return (
@@ -243,15 +267,14 @@ const InnerGrid = styled.div`
   display: flex;
   flex-direction: column;
 `;
-
-const Control = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
 const NodeRow = styled.div`
   /* background-color: blue; */
   display: flex;
   flex-direction: row;
+`;
+const Control = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 const ToggleWeight = styled.button``;

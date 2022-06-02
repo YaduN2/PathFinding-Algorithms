@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Node from "../Node";
 import "./Map.css";
 import AStar from "../../scripts/AStarAlgorithm";
+
 function Map() {
   const ROW = 20;
   const COL = 30;
@@ -45,7 +46,7 @@ function Map() {
       valueF: 0,
       valueG: 0,
       valueH: 0,
-      display: weight,
+      display: "",
     };
   };
 
@@ -80,7 +81,7 @@ function Map() {
     });
   };
 
-  const resetDijkstra = () => {
+  const resetAStar = () => {
     algorithmParams = {
       algorithmStatus: 0,
       startSelected: false,
@@ -95,36 +96,78 @@ function Map() {
     setNodes(makeNodes());
   };
 
+  const randomAStar = () => {
+    setNodes(makeNodes(1));
+    algorithmParams = {
+      algorithmStatus: 0,
+      startSelected: false,
+      endSelected: false,
+      startRow: -1,
+      startCol: -1,
+      endRow: -1,
+      endCol: -1,
+      nRow: ROW,
+      nCol: COL,
+    };
+  };
+
   //visitedNodes-> array of nodes in visisted order , newGrid-> a cloned version of grid(2D array of nodes)
+
+  const locateNode = (visitedNodes) => {
+    if (visitedNodes.length !== 0) {
+      for (let i = 0; i < visitedNodes.length; i++) {
+        setTimeout(() => {
+          let newGrid = clonedGrid(grid);
+          const node = visitedNodes[i];
+          console.log(node.id);
+          const newNode = {
+            ...node,
+            color: "yellow",
+          };
+          newGrid[node.rowId][node.colId] = newNode;
+          setNodes(newGrid);
+          // console.log(newGrid);
+        }, 50 * i);
+      }
+    }
+  };
+
   const colorVisited = (visitedNodes, newGrid) => {
     if (visitedNodes.length !== 0) {
       for (let i = 0; i < visitedNodes.length; i++) {
         const node = visitedNodes[i];
-        // console.log(node.id);
-        let newNode = {
+        console.log(node.id);
+        const newNode = {
           ...node,
           color: "yellow",
         };
         newGrid[node.rowId][node.colId] = newNode;
         setNodes(newGrid);
+        // console.log(newGrid);
       }
     }
   };
 
   const colorPath = (path, newGrid) => {
-    if (path.length !== 0) {
-      for (let i = 0; i < path.length; i++) {
-        const node = path[i];
-        // console.log(node.id);
-        let newNode = {
-          ...node,
-          color: "deeppink",
-          visited: 2,
-        };
-        newGrid[node.rowId][node.colId] = newNode;
-        setNodes(newGrid);
-      }
+    for (let i = 0; i < path.length; i++) {
+      const node = path[i];
+      console.log(node.id);
+      let newNode = {
+        ...node,
+        color: "deeppink",
+        visited: 2,
+      };
+      newGrid[node.rowId][node.colId] = newNode;
+      setNodes(newGrid);
     }
+  };
+
+  const changeC = (path, visitedNodes, newGrid) => {
+    locateNode(visitedNodes);
+    setTimeout(() => {
+      colorVisited(visitedNodes, newGrid);
+      colorPath(path, newGrid);
+    }, 50 * visitedNodes.length);
   };
 
   const test = () => {};
@@ -140,8 +183,7 @@ function Map() {
     var path = retObject.path;
     var visitedNodes = retObject.visitedNodes;
     var newGrid = clonedGrid(grid);
-    colorVisited(visitedNodes, newGrid);
-    colorPath(path, newGrid);
+    changeC(path, visitedNodes, newGrid);
   };
 
   return (
@@ -172,26 +214,26 @@ function Map() {
           Start
         </DijkstraStartBtn>
         <DijkstraResetBtn
-          onClick={resetDijkstra}
+          onClick={resetAStar}
           className="button"
           style={{ backgroundColor: "#733a3a" }}
         >
           Reset
         </DijkstraResetBtn>
         <DijkstraRandomBtn
-          onClick={test}
+          onClick={randomAStar}
           className="button"
           style={{ backgroundColor: "#3a4073" }}
         >
           Random
         </DijkstraRandomBtn>
-        <DijkstraRandomWeightedBtn
+        {/* <DijkstraRandomWeightedBtn
           onClick={test}
           className="button"
           style={{ backgroundColor: "#3a7366" }}
         >
           Random Weight
-        </DijkstraRandomWeightedBtn>
+        </DijkstraRandomWeightedBtn> */}
       </Control>
     </Grid>
   );

@@ -9,7 +9,7 @@ function NavBar() {
       <Logo>
         <SLink>
           <NavLink to="/">
-            <h1>ImaJine</h1>
+            <Heading>ImaJine</Heading>
           </NavLink>
         </SLink>
       </Logo>
@@ -36,6 +36,15 @@ function NavBar() {
 
 export default NavBar;
 
+const Heading = styled.h1`
+  border: 2px white solid;
+  padding: 10px;
+  border-radius: 5px;
+  :hover {
+    background-color: white;
+    color: black;
+  }
+`;
 const Nav = styled.nav`
   background: #000;
   height: 100px;
@@ -74,7 +83,6 @@ const NavMenu = styled.div`
   display: flex;
   align-items: center;
   margin-right: -24px;
-
   @media screen and (max-width: 768px) {
   }
 `;
@@ -97,7 +105,12 @@ const SLink = styled.div`
     font-size: 1.2rem;
     cursor: pointer;
     align-items: center;
-
+    :hover {
+      color: #2eff2e;
+      span {
+        color: #15cdfc;
+      }
+    }
     &.active {
       color: #15cdfc;
       span {

@@ -89,10 +89,10 @@ function Node({ data, algorithmParams }) {
       onClick={changeStyle}
     >
       {/* {data.rowId + " " + data.colId} */}
-      {data.id}
+      {/* {data.id} */}
       {/* {data.value} */}
       {/* {data.weight} */}
-      {/* {data.display} */}
+      {data.display}
     </Cell>
   );
 }
@@ -104,10 +104,13 @@ const Cell = styled.div`
   height: 35px;
   margin-top: auto;
   margin-right: auto;
+  /* margin: 2px; */
   border: 2px black solid;
   /* border-radius: 50%; */
   display: flex;
   justify-content: center;
   align-items: center;
   user-select: none;
+  &:hover {
+  }
 `;
