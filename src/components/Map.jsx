@@ -57,6 +57,9 @@ const Grid = styled.div`
 const InnerGrid = styled.div`
   display: flex;
   flex-direction: column;
+  border: 5px solid black;
+  /* rgb(253, 4, 120); */
+  border-radius: 10px;
 `;
 const NodeRow = styled.div`
   /* background-color: blue; */

@@ -7,28 +7,32 @@ function Control({ start, reset, randomBlock = null, randomWeight = null }) {
       <StartBtn
         onClick={start}
         className="button"
-        style={{ backgroundColor: "#3a733a" }}
+        style={{ backgroundColor: "#3ca53c" }}
       >
         Start
       </StartBtn>
       <ResetBtn
         onClick={reset}
         className="button"
-        style={{ backgroundColor: "#733a3a" }}
+        style={{ backgroundColor: "#892a2a" }}
       >
         Reset
       </ResetBtn>
       <RandomBlockBtn
         onClick={randomBlock}
         className="button"
-        style={{ backgroundColor: "#3a4073" }}
+        style={{
+          display: randomBlock === null ? "none" : "",
+          backgroundColor: "#333b88",
+        }}
       >
         Random Blocks
       </RandomBlockBtn>
       <RandomWeightBtn
         onClick={randomWeight}
         className="button"
-        style={{ backgroundColor: "#3a7366" }}
+        style={{ display: randomWeight === null ? "none" : "" }}
+        // style={{ backgroundColor: "#3a7366" }}
       >
         Random Weight
       </RandomWeightBtn>
@@ -46,3 +50,12 @@ const ResetBtn = styled.button``;
 const RandomBlockBtn = styled.button``;
 const RandomWeightBtn = styled.button``;
 const StartBtn = styled.button``;
+
+/* .button {
+  font-size: 1.2rem;
+  padding: 8px;
+  margin-top: 12px;
+  width: 6rem;
+  border: 3px solid black;
+  border-radius: 10px;
+} */
