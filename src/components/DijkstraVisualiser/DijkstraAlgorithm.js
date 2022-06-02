@@ -1,4 +1,4 @@
-import PriorityQueue from "./PriorityQueue";
+import PriorityQueue from "../../scripts/PriorityQueue";
 
 const DijkstraAlgorithm = (nodes, algorithmParams) => {
   let row = algorithmParams.nRow;

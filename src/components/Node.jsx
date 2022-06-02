@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import changeStyle from "../scripts/changeStyle";
+import changeStyle from "../scripts/changeStyleNode";
+
 function Node({ data, algorithmParams }) {
   // console.log(algorithmParams);
   const [style, setStyle] = useState("unvisited");

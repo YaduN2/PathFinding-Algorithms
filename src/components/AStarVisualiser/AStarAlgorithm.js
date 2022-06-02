@@ -1,4 +1,4 @@
-import PriorityQueue from "./PriorityQueue";
+import PriorityQueue from "../../scripts/PriorityQueue";
 
 const getNeighbours = (node, grid, algorithmParams) => {
   var neighbours = [];
