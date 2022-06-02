@@ -30,7 +30,9 @@ function Node({ data, algorithmParams }) {
       {data.isBlock
         ? ""
         : algorithmParams.algorithm === 1
-        ? data.valueF //+ " " + data.valueH + " " + data.valueG
+        ? data.valueF === undefined
+          ? ""
+          : data.valueF //+ " " + data.valueH + " " + data.valueG
         : data.display}
     </Cell>
   );

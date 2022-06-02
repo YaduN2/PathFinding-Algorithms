@@ -23,7 +23,7 @@ function Control({ start, reset, randomBlock = null, randomWeight = null }) {
         className="button"
         style={{
           display: randomBlock === null ? "none" : "",
-          backgroundColor: "#333b88",
+          backgroundColor: "#ff376c",
         }}
       >
         Random Blocks

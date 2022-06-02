@@ -1,14 +1,15 @@
 /* CSS */
 .button {
   align-items: center;
-  background-color: #ff376c;
+  background-color: #333b88;
+
   border: 2px solid #111;
   border-radius: 8px;
   box-sizing: border-box;
   color: #111;
   cursor: pointer;
   display: flex;
-  font-family: Inter, sans-serif;
+  font-family: "Roboto", Inter, sans-serif;
   font-size: 16px;
   height: 48px;
   justify-content: center;
@@ -23,7 +24,7 @@
   touch-action: manipulation;
   margin-top: 20px;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 400;
 }
 
 .button:after {
