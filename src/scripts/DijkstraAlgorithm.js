@@ -47,7 +47,7 @@ const DijkstraAlgorithm = (nodes, algorithmParams) => {
     return neighbours;
   };
 
-  console.log("Start Dijkstra");
+  // console.log("Start Dijkstra");
 
   if (!algorithmParams.startSelected || !algorithmParams.endSelected) {
     console.log("algorithmParams not satisfied");

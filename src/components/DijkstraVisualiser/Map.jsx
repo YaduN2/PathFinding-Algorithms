@@ -136,7 +136,7 @@ function Map() {
         setTimeout(() => {
           let newGrid = clonedGrid(grid);
           const node = visitedNodes[i];
-          console.log(node.id);
+          // console.log(node.id);
           const newNode = {
             ...node,
             color: "yellow",
@@ -153,7 +153,7 @@ function Map() {
     if (visitedNodes.length !== 0) {
       for (let i = 0; i < visitedNodes.length; i++) {
         const node = visitedNodes[i];
-        console.log(node.id);
+        // console.log(node.id);
         const newNode = {
           ...node,
           color: "yellow",
@@ -168,7 +168,7 @@ function Map() {
   const colorPath = (path, newGrid) => {
     for (let i = 0; i < path.length; i++) {
       const node = path[i];
-      console.log(node.id);
+      // console.log(node.id);
       let newNode = {
         ...node,
         color: "deeppink",
@@ -195,6 +195,7 @@ function Map() {
     }
     // console.log("button clicked");
     var retObject = DijkstraAlgorithm(grid, algorithmParams);
+    console.log(retObject);
     var path = retObject.path;
     var visitedNodes = retObject.visitedNodes;
     var newGrid = clonedGrid(grid);

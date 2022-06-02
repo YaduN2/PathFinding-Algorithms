@@ -70,7 +70,6 @@ const AStar = (grid, algorithmParams) => {
     returnObject.visitedNodes.push(currentNode);
 
     if (currentNode === endingNode) {
-      console.log("END");
       returnObject.path = getPath(endingNode);
       return returnObject;
     }
