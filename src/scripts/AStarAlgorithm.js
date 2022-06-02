@@ -68,20 +68,26 @@ const AStar = (grid, algorithmParams) => {
     openList.dequeue();
     currentNode.visited = 1;
     returnObject.visitedNodes.push(currentNode);
+
     if (currentNode === endingNode) {
       console.log("END");
       returnObject.path = getPath(endingNode);
       return returnObject;
     }
+
     var neighbours = getNeighbours(currentNode, grid, algorithmParams);
 
     for (const neighbour of neighbours) {
-      if (neighbour.weight === 999) continue;
+      if (neighbour.isBlock) continue;
+
       let tempGScore = arrayGValues[currentNode.id] + currentNode.weight;
+
       if (tempGScore < arrayGValues[neighbour.id]) {
         neighbour.parent = currentNode;
         arrayGValues[neighbour.id] = tempGScore;
-        neighbour.valueF = tempGScore + getH(neighbour, endingNode);
+        neighbour.valueG = tempGScore;
+        neighbour.valueH = getH(neighbour, endingNode);
+        neighbour.valueF = tempGScore + neighbour.valueH;
         if (neighbour.visited === 0) {
           openList.enqueue(neighbour, neighbour.valueF);
         }

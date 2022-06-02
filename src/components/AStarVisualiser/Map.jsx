@@ -8,6 +8,7 @@ function Map() {
   const ROW = 20;
   const COL = 30;
   let algorithmParams = {
+    algorithm: 1,
     algorithmStatus: 0,
     startSelected: false,
     endSelected: false,
@@ -19,11 +20,11 @@ function Map() {
     nCol: COL,
   };
 
-  const getWeight = () => {
+  const getRandomBlocks = () => {
     if (Math.random() > 0.8) {
-      return 999;
+      return true;
     } else {
-      return 1;
+      return false;
     }
   };
 
@@ -31,7 +32,7 @@ function Map() {
     return Math.floor(Math.random() * 100);
   };
 
-  const makeNode = (row, col, nodeID, weight = 1) => {
+  const makeNode = (row, col, nodeID, weight = 1, block = false) => {
     return {
       rowId: row,
       colId: col,
@@ -39,6 +40,7 @@ function Map() {
       value: 1,
       isStart: false,
       isEnd: false,
+      isBlock: block,
       weight: weight,
       parent: null,
       visited: 0,
@@ -58,10 +60,10 @@ function Map() {
       let nodeRow = [];
       for (let j = 0; j < COL; j++) {
         totalNode++;
-        let weight;
-        if (flag === 1) weight = getWeight();
+        let weight, block;
+        if (flag === 1) block = getRandomBlocks();
         if (flag === 2) weight = getRandomWeight();
-        let node = makeNode(i, j, totalNode - 1, weight);
+        let node = makeNode(i, j, totalNode - 1, weight, block);
         nodeRow.push(node);
       }
       initalNodes.push(nodeRow);
@@ -83,6 +85,7 @@ function Map() {
 
   const resetAStar = () => {
     algorithmParams = {
+      algorithm: 1,
       algorithmStatus: 0,
       startSelected: false,
       endSelected: false,
@@ -99,6 +102,7 @@ function Map() {
   const randomAStar = () => {
     setNodes(makeNodes(1));
     algorithmParams = {
+      algorithm: 1,
       algorithmStatus: 0,
       startSelected: false,
       endSelected: false,
@@ -165,6 +169,7 @@ function Map() {
   const changeC = (path, visitedNodes, newGrid) => {
     locateNode(visitedNodes);
     setTimeout(() => {
+      if (path.length === 0) alert("PATH NOT FOUND!");
       colorVisited(visitedNodes, newGrid);
       colorPath(path, newGrid);
     }, 50 * visitedNodes.length);
@@ -225,7 +230,7 @@ function Map() {
           className="button"
           style={{ backgroundColor: "#3a4073" }}
         >
-          Random
+          Random Blocks
         </DijkstraRandomBtn>
         {/* <DijkstraRandomWeightedBtn
           onClick={test}

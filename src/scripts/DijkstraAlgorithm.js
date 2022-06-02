@@ -75,9 +75,10 @@ const DijkstraAlgorithm = (nodes, algorithmParams) => {
       // selectedNode = nodes[nI][nJ]
       let [nI, nJ] = neighbour;
 
-      if (nodes[nI][nJ].weight === 999) {
+      if (nodes[nI][nJ].isBlock) {
         continue;
       }
+
       if (nodes[nI][nJ] === endingNode) {
         nodes[nI][nJ].parent = currNode;
         nodes[nI][nJ].visited = 1;
