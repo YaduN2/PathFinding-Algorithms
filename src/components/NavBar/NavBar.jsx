@@ -9,7 +9,9 @@ function NavBar() {
       <Logo>
         <SLink>
           <NavLink to="/">
-            <Heading>ImaJine</Heading>
+            <Heading>
+              Path&nbsp;Find<span className="r">r</span>
+            </Heading>
           </NavLink>
         </SLink>
       </Logo>
@@ -40,9 +42,13 @@ const Heading = styled.h1`
   border: 2px white solid;
   padding: 10px;
   border-radius: 5px;
+  font-weight: 500;
   :hover {
     background-color: white;
     color: black;
+    .r {
+      color: #15cdfc;
+    }
   }
 `;
 
@@ -84,6 +90,7 @@ const NavMenu = styled.div`
   display: flex;
   align-items: center;
   margin-right: -24px;
+  font-weight: 500;
   @media screen and (max-width: 768px) {
   }
 `;
