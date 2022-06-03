@@ -54,6 +54,8 @@ const Cell = styled.div`
   justify-content: center;
   align-items: center;
   user-select: none;
-  &:hover {
+  @media screen and (max-width: 758px) {
+    width: 25px;
+    height: 25px;
   }
 `;

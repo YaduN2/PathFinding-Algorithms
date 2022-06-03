@@ -47,6 +47,7 @@ const Heading = styled.h1`
 `;
 
 const Nav = styled.nav`
+  width: 100%;
   background: #000;
   height: 100px;
   display: flex;
@@ -71,7 +72,6 @@ const Nav = styled.nav`
   @media screen and (min-width: 300px) and (max-width: 768px) {
     /* display: none; */
     font-size: 12px;
-    overflow-x: hidden;
   }
 
   @media screen and (max-width: 768px) {

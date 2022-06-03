@@ -64,6 +64,10 @@ export default Control;
 const Controls = styled.div`
   display: flex;
   flex-direction: column;
+  @media screen and (max-width: 758px) {
+    flex-direction: row;
+    width: 100%;
+  }
 `;
 const ResetBtn = styled.button``;
 const RandomBlockBtn = styled.button``;

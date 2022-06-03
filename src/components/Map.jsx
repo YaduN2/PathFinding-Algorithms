@@ -54,6 +54,10 @@ const Grid = styled.div`
   position: relative;
   margin: 20px;
   padding: 20px;
+  @media screen and (max-width: 758px) {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const InnerGrid = styled.div`
@@ -62,6 +66,8 @@ const InnerGrid = styled.div`
   border: 5px solid black;
   /* rgb(253, 4, 120); */
   border-radius: 10px;
+  @media screen and (max-width: 758px) {
+  }
 `;
 const NodeRow = styled.div`
   /* background-color: blue; */
