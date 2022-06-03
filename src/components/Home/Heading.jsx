@@ -21,4 +21,7 @@ const HeadingCard = styled.div`
   &:hover {
     border: 3px solid #15cdfc;
   }
+  @media screen and (max-width: 768px) {
+    font-size: 2.2rem;
+  }
 `;
