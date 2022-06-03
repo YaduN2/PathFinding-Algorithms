@@ -59,7 +59,10 @@ function AStar() {
 
   const randomMazeGen = () => {
     // setNodes(makeNodes(algorithmParams, 0, true));
-    let [maze, walls] = mazeGenerator(grid, algorithmParams);
+    let [maze, walls] = mazeGenerator(
+      makeNodes(algorithmParams),
+      algorithmParams
+    );
     console.log(maze);
     generateMaze(maze, algorithmParams, setNodes);
 
