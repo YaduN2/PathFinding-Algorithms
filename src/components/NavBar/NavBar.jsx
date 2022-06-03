@@ -45,6 +45,7 @@ const Heading = styled.h1`
     color: black;
   }
 `;
+
 const Nav = styled.nav`
   background: #000;
   height: 100px;

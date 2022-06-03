@@ -35,7 +35,10 @@ function Control({
         Random Blocks
       </RandomBlockBtn>
       <RandomMazeBtn
-        onClick={randomMaze}
+        onClick={() => {
+          reset();
+          randomMaze();
+        }}
         className="button"
         style={{
           display: randomBlock === null ? "none" : "",

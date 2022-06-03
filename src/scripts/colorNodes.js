@@ -85,6 +85,7 @@ const changeColor = (grid, path, visitedNodes, setNodes) => {
   setTimeout(() => {
     colorVisited(visitedNodes, newGrid, setNodes);
     colorPath(path, newGrid, setNodes);
+    if (path.length === 0) alert("PATH NOT FOUND");
   }, 50 * visitedNodes.length + 50 * path.length);
 };
 

@@ -48,6 +48,16 @@ function DijkstraHome() {
     algorithmParams = getInitialParams();
   };
 
+  const randomMazeGen = () => {
+    let [maze, walls] = mazeGenerator(
+      makeNodes(algorithmParams),
+      algorithmParams
+    );
+    console.log(maze);
+    generateMaze(maze, algorithmParams, setNodes);
+    // console.log(walls);
+  };
+
   const startDijkstra = () => {
     // console.log("button clicked");
 
@@ -61,15 +71,6 @@ function DijkstraHome() {
     var path = returnObject.path;
     var visitedNodes = returnObject.visitedNodes;
     changeColor(grid, path, visitedNodes, setNodes);
-  };
-
-  const randomMazeGen = () => {
-    resetDijkstra();
-    // setNodes(makeNodes(algorithmParams, 0, true));
-    let [maze, walls] = mazeGenerator(grid, algorithmParams);
-    console.log(maze);
-    generateMaze(maze, algorithmParams, setNodes);
-    // console.log(walls);
   };
 
   return (
