@@ -3,7 +3,8 @@ import Map from "../components/Map";
 import makeNodes from "../scripts/makeNodes";
 import changeColor from "../scripts/colorNodes";
 import AStarAlgorithm from "../components/AStarVisualiser/AStarAlgorithm";
-
+import mazeGenerator from "../components/MazeGenerator/MazeGenerator";
+import generateMaze from "../scripts/generateMaze";
 function AStar() {
   const ROW = 20;
   const COL = 30;
@@ -55,6 +56,15 @@ function AStar() {
     changeColor(grid, path, visitedNodes, setNodes);
   };
 
+  const randomMazeGen = () => {
+    // setNodes(makeNodes(algorithmParams, 0, true));
+    let [maze, walls] = mazeGenerator(grid, algorithmParams);
+    console.log(maze);
+    generateMaze(maze, algorithmParams, setNodes);
+
+    // console.log(walls);
+  };
+
   return (
     <Map
       grid={grid}
@@ -62,6 +72,7 @@ function AStar() {
       start={startAStar}
       reset={resetAStar}
       randomBlock={randomAStar}
+      randomMaze={randomMazeGen}
     />
   );
 }

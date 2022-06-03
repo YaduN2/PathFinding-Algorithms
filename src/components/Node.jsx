@@ -22,10 +22,10 @@ function Node({ data, algorithmParams }) {
         changeStyle(data, algorithmParams, setStyle);
       }}
     >
-      {/* {data.rowId + " " + data.colId}
-      {data.id}
-      {data.value}
-      {data.weight} */}
+      {/* {data.rowId + " " + data.colId} */}
+      {/* {data.id} */}
+      {/* {data.value} */}
+      {/* {data.weight} */}
 
       {data.isBlock
         ? ""
@@ -33,6 +33,8 @@ function Node({ data, algorithmParams }) {
         ? data.valueF === undefined
           ? ""
           : data.valueF //+ " " + data.valueH + " " + data.valueG
+        : data.weight === 1
+        ? ""
         : data.display}
     </Cell>
   );

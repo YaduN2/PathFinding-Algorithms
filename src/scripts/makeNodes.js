@@ -24,10 +24,11 @@ const makeNode = (rowId, colId, nodeID, weight = 1, block = false) => {
     visited: 0,
     color: "white",
     display: weight,
+    mazeVisited: false,
   };
 };
 
-const makeNodes = (algorithmParams, flag = 0) => {
+const makeNodes = (algorithmParams, flag = 0, maze = false) => {
   let initalNodes = [];
   let totalNode = 0;
   let ROW = algorithmParams.nRow,
@@ -39,6 +40,7 @@ const makeNodes = (algorithmParams, flag = 0) => {
       let weight, block;
       if (flag === 1) block = getRandomBlocks();
       if (flag === 2) weight = getRandomWeight();
+      if (maze) block = true;
       let node = makeNode(i, j, totalNode - 1, weight, block);
       nodeRow.push(node);
     }

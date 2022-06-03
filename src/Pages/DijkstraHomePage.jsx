@@ -3,6 +3,8 @@ import Map from "../components/Map";
 import makeNodes from "../scripts/makeNodes";
 import changeColor from "../scripts/colorNodes";
 import DijkstraAlgorithm from "../components/DijkstraVisualiser/DijkstraAlgorithm";
+import mazeGenerator from "../components/MazeGenerator/MazeGenerator";
+import generateMaze from "../scripts/generateMaze";
 
 function DijkstraHome() {
   const ROW = 20;
@@ -61,6 +63,14 @@ function DijkstraHome() {
     changeColor(grid, path, visitedNodes, setNodes);
   };
 
+  const randomMazeGen = () => {
+    // setNodes(makeNodes(algorithmParams, 0, true));
+    let [maze, walls] = mazeGenerator(grid, algorithmParams);
+    console.log(maze);
+    generateMaze(maze, algorithmParams, setNodes);
+    // console.log(walls);
+  };
+
   return (
     <Map
       grid={grid}
@@ -69,6 +79,7 @@ function DijkstraHome() {
       reset={resetDijkstra}
       randomBlock={randomDijkstra}
       randomWeighted={randomWeightedDijkstra}
+      randomMaze={randomMazeGen}
     />
   );
 }

@@ -1,7 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import "./Others.css";
-function Control({ start, reset, randomBlock = null, randomWeight = null }) {
+function Control({
+  start,
+  reset,
+  randomBlock = null,
+  randomWeight = null,
+  randomMaze,
+}) {
   return (
     <Controls>
       <StartBtn
@@ -28,6 +34,16 @@ function Control({ start, reset, randomBlock = null, randomWeight = null }) {
       >
         Random Blocks
       </RandomBlockBtn>
+      <RandomMazeBtn
+        onClick={randomMaze}
+        className="button"
+        style={{
+          display: randomBlock === null ? "none" : "",
+          backgroundColor: "#def700",
+        }}
+      >
+        Generate Maze
+      </RandomMazeBtn>
       <RandomWeightBtn
         onClick={randomWeight}
         className="button"
@@ -48,6 +64,7 @@ const Controls = styled.div`
 `;
 const ResetBtn = styled.button``;
 const RandomBlockBtn = styled.button``;
+const RandomMazeBtn = styled.button``;
 const RandomWeightBtn = styled.button``;
 const StartBtn = styled.button``;
 

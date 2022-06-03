@@ -2,6 +2,11 @@ const changeStyle = (data, algorithmParams, setStyle) => {
   //##
   //##
   //if selectedNode is Start or End
+  if (data.isBlock) {
+    data.isBlock = false;
+    setStyle("unvisited");
+    return;
+  }
   if (data.isStart || data.isEnd) {
     //if selectedNode is Start
     if (data.isStart) {
@@ -22,6 +27,7 @@ const changeStyle = (data, algorithmParams, setStyle) => {
       return;
     }
   }
+
   if (!algorithmParams.startSelected || !algorithmParams.endSelected) {
     //start not selected
     if (
@@ -51,15 +57,10 @@ const changeStyle = (data, algorithmParams, setStyle) => {
     }
   } else {
     //if SelectedNode is block
-    if (data.isBlock) {
-      data.isBlock = false;
-      setStyle("unvisited");
-      return;
-    } else {
-      data.isBlock = true;
-      setStyle("block");
-      return;
-    }
+
+    data.isBlock = true;
+    setStyle("block");
+    return;
   }
 };
 

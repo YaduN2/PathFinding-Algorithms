@@ -10,6 +10,7 @@ function Map({
   reset,
   randomBlock,
   randomWeighted,
+  randomMaze,
 }) {
   return (
     <Grid>
@@ -35,6 +36,7 @@ function Map({
         reset={reset}
         randomBlock={randomBlock}
         randomWeight={randomWeighted}
+        randomMaze={randomMaze}
       />
     </Grid>
   );

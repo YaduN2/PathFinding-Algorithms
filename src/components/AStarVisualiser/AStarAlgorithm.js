@@ -2,6 +2,7 @@ import PriorityQueue from "../../scripts/PriorityQueue";
 
 const getNeighbours = (node, grid, algorithmParams) => {
   var neighbours = [];
+
   let i = node.rowId,
     j = node.colId,
     row = algorithmParams.nRow,
@@ -51,7 +52,6 @@ const AStar = (grid, algorithmParams) => {
   let endingNode = grid[algorithmParams.endRow][algorithmParams.endCol];
   let totalNodes = algorithmParams.nRow * algorithmParams.nCol;
   var openList = new PriorityQueue();
-  let closedList = [];
   var arrayGValues = new Array(totalNodes);
   let returnObject = {
     path: [],
