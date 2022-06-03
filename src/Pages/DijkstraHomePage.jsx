@@ -4,7 +4,7 @@ import makeNodes from "../scripts/makeNodes";
 import changeColor from "../scripts/colorNodes";
 import DijkstraAlgorithm from "../components/DijkstraVisualiser/DijkstraAlgorithm";
 import mazeGenerator from "../components/MazeGenerator/MazeGenerator";
-import generateMaze from "../scripts/generateMaze";
+import generateMaze from "../components/MazeGenerator/generateMaze";
 
 function DijkstraHome() {
   const ROW = 20;
@@ -64,6 +64,7 @@ function DijkstraHome() {
   };
 
   const randomMazeGen = () => {
+    resetDijkstra();
     // setNodes(makeNodes(algorithmParams, 0, true));
     let [maze, walls] = mazeGenerator(grid, algorithmParams);
     console.log(maze);

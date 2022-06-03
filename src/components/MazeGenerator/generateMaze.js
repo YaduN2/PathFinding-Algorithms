@@ -1,4 +1,4 @@
-import makeNodes from "./makeNodes";
+import makeNodes from "../../scripts/makeNodes";
 const clonedGrid = (grid) => {
   return grid.map(function (arr) {
     return arr.slice();

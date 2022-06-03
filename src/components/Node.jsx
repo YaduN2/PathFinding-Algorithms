@@ -32,7 +32,7 @@ function Node({ data, algorithmParams }) {
         : algorithmParams.algorithm === 1
         ? data.valueF === undefined
           ? ""
-          : data.valueF //+ " " + data.valueH + " " + data.valueG
+          : "" //data.valueF //+ " " + data.valueH + " " + data.valueG
         : data.weight === 1
         ? ""
         : data.display}

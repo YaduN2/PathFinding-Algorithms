@@ -4,7 +4,8 @@ import makeNodes from "../scripts/makeNodes";
 import changeColor from "../scripts/colorNodes";
 import AStarAlgorithm from "../components/AStarVisualiser/AStarAlgorithm";
 import mazeGenerator from "../components/MazeGenerator/MazeGenerator";
-import generateMaze from "../scripts/generateMaze";
+import generateMaze from "../components/MazeGenerator/generateMaze";
+
 function AStar() {
   const ROW = 20;
   const COL = 30;
