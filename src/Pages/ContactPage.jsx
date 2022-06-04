@@ -10,7 +10,7 @@ function ContactPage() {
 
   return (
     <Heading>
-      <div>
+      {/* <div>
         <span> Name:&nbsp; </span>
         {contact.name}
       </div>
@@ -25,7 +25,8 @@ function ContactPage() {
       <div>
         <span>LinkedIn:&nbsp;</span>
         <a href={contact.linkedIn}>Yadu Nandan</a>
-      </div>
+      </div> */}
+      ????? SOMETHING HERE `
     </Heading>
   );
 }
