@@ -10,7 +10,7 @@ function ContactPage() {
 
   return (
     <Heading>
-      {/* <div>
+      <div>
         <span> Name:&nbsp; </span>
         {contact.name}
       </div>
@@ -18,15 +18,14 @@ function ContactPage() {
         <span>Email:&nbsp;</span>
         {contact.email}
       </div>
-      <div>
+      {/* <div>
         <span>Github:&nbsp;</span>
         <a href={contact.github}>YaduN2</a>
-      </div>
+      </div> */}
       <div>
         <span>LinkedIn:&nbsp;</span>
         <a href={contact.linkedIn}>Yadu Nandan</a>
-      </div> */}
-      ????? SOMETHING HERE `
+      </div>
     </Heading>
   );
 }
